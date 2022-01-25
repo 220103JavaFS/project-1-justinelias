@@ -7,7 +7,7 @@ import io.javalin.http.Handler;
 
 public class LoginController implements Controller{
 
-    LoginService loginService = new LoginService;
+    LoginService loginService = new LoginService();
 
     private Handler loginAttempt = (ctx) ->{
         User user = ctx.bodyAsClass(User.class);

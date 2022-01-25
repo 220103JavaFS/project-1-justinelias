@@ -12,7 +12,6 @@ public class User {
     private String userEmail;
     private UserRole userRole;
 
-
     public User() {
     }
 
