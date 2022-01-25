@@ -1,5 +1,6 @@
 package com.revature;
 
+import com.revature.controllers.Controller;
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
 import org.slf4j.Logger;
