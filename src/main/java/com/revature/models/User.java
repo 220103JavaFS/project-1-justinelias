@@ -16,13 +16,14 @@ public class User {
     public User() {
     }
 
-    public User(int ersUsersId, String ersUsername, String ersPassword, String userFirstName, String userLastname, String userEmail) {
+    public User(int ersUsersId, String ersUsername, String ersPassword, String userFirstName, String userLastname, String userEmail, UserRole userRole) {
         this.ersUsersId = ersUsersId;
         this.ersUsername = ersUsername;
         this.ersPassword = ersPassword;
         this.userFirstName = userFirstName;
         this.userLastname = userLastname;
         this.userEmail = userEmail;
+        this.userRole = userRole;
     }
 
     public int getErsUsersId() {
@@ -71,6 +72,14 @@ public class User {
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
+    }
+
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
 
     @Override
