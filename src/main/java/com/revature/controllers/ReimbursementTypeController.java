@@ -19,10 +19,13 @@ public class ReimbursementTypeController implements Controller{
         }
     };
 
+    private Handler addType = (ctx) ->{
 
+    };
 
     @Override
     public void addRoutes(Javalin app) {
         app.get("/type/{id}", getTypeByID);
+        app.post("/type", addType);
     }
 }

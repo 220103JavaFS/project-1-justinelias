@@ -11,4 +11,7 @@ public class UserRoleService {
     public UserRole getRoleById(int id) {
         return userRoleDAO.getRoleById(id);
     }
+    public boolean addRole(UserRole userRole){
+        return false;
+    }
 }

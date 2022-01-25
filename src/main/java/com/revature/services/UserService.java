@@ -14,4 +14,8 @@ public class UserService {
     public User getUserByUsername(String ersUsername) {
         return userDao.getUserByUsername(ersUsername);
     }
+
+    public boolean addUser(User user){
+        return false;
+    }
 }
