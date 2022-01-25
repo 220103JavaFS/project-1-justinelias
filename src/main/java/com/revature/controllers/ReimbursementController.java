@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 import com.revature.models.Reimbursement;
+import com.revature.services.ReimbursementService;
 import io.javalin.Javalin;
 import io.javalin.http.Handler;
 
@@ -8,7 +9,7 @@ import java.util.List;
 
 public class ReimbursementController implements Controller{
 
-    ReimbursementService reimbursementService = new ReimbursementService;
+    ReimbursementService reimbursementService = new ReimbursementService();
 
     private Handler newReimb = (ctx) ->{
         if(ctx.req.getSession(false)!=null){
