@@ -1,11 +1,12 @@
 package com.revature.controllers;
 
+import com.revature.services.ReimbursementTypeService;
 import io.javalin.Javalin;
 import io.javalin.http.Handler;
 
 public class ReimbursementTypeController implements Controller{
 
-    private ReimbursementTypeService reimbursementTypeService = new ReimbursementTypeService;
+    private ReimbursementTypeService reimbursementTypeService = new ReimbursementTypeService();
 
     private Handler getTypeByID = (ctx) -> {
         if(ctx.req.getSession(false)!=null){
