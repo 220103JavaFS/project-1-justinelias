@@ -18,4 +18,9 @@ public class UserDAOImpl implements UserDAO {
         return null;
     }
 
+    @Override
+    public boolean addUser(User user) {
+        return false;
+    }
+
 }

@@ -7,4 +7,7 @@ public class ReimbursementTypeService {
     public ReimbursementType getTypeById(int id) {
         return null;
     }
+    public boolean addType(ReimbursementType reimbType){
+        return false;
+    }
 }

@@ -5,4 +5,5 @@ import com.revature.models.UserRole;
 public interface UserRoleDAO {
 
     UserRole getRoleById(int id);
+    boolean addRole(UserRole userRole);
 }

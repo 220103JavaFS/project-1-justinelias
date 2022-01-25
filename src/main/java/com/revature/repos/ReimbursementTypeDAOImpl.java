@@ -7,4 +7,9 @@ public class ReimbursementTypeDAOImpl implements ReimbursementTypeDAO{
     public ReimbursementType getTypeById(int id) {
         return null;
     }
+
+    @Override
+    public boolean addType(ReimbursementType reimbType) {
+        return false;
+    }
 }

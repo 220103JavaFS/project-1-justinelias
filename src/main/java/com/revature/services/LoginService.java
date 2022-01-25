@@ -2,10 +2,11 @@ package com.revature.services;
 
 import com.revature.models.User;
 import com.revature.repos.UserDAO;
+import com.revature.repos.UserDAOImpl;
 
 public class LoginService {
 
-    UserDAO userDAO = new UserDAO;
+    UserDAO userDAO = new UserDAOImpl();
 
     public LoginService() {
     }

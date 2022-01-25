@@ -9,4 +9,9 @@ public class UserRoleDAOImpl implements UserRoleDAO{
     public UserRole getRoleById(int id) {
         return null;
     }
+
+    @Override
+    public boolean addRole(UserRole userRole) {
+        return false;
+    }
 }
