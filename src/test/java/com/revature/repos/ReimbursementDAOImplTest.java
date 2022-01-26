@@ -8,6 +8,8 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 import java.sql.Timestamp;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 
 public class ReimbursementDAOImplTest {
@@ -27,13 +29,13 @@ public class ReimbursementDAOImplTest {
     @Test
     @Order(1)
     void testAddReimb(){
-        //test code
+        assertTrue(reimbursementDAO.addReimb(testReimbursement));
     }
 
     @Test
     @Order(2)
     void testUpdateReimbursement(){
-
+    assertTrue(reimbursementDAO.updateReimb(testReimbursement));
     }
 
 }

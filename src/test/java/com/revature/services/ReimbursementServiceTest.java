@@ -47,15 +47,17 @@ public class ReimbursementServiceTest {
     }
     @Test
     public void testAddReimb(){
-
+        assertTrue(testInstance.addReimb(testReimbursement));
     }
 
     @Test
     public void testUpdateReimb(){
+        assertTrue(testInstance.updateReimb(testReimbursement));
 
     }
 
     public void testGetAllReimbs(){
+        assertEquals(testReimbursement, testInstance.getAllReimbs());
 
     }
 }

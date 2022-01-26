@@ -32,11 +32,11 @@ public class ReimbursementStatusServiceTest {
 
     @Test
     public void testAddStatus(){
-
+        assertTrue(testInstance.addStatus(testStatus));
     }
 
     @Test
     public void testGetStatusByIdSuccess(){
-
+        assertEquals(testStatus, testInstance.getStatusById(testStatus.getReimbStatusId()));
     }
 }
