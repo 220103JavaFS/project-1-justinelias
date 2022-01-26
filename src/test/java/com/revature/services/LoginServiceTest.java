@@ -1,6 +1,7 @@
 package com.revature.services;
 
-import com.revature.models.UserDTO;
+import com.revature.models.User;
+import com.revature.models.UserRole;
 import com.revature.repos.UserDAO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,35 +19,44 @@ public class LoginServiceTest {
     @Mock
     private UserDAO mockedDAO;
 
-    private UserDTO testUser = new UserDTO();
+    private User testUser = new User();
 
-//    @BeforeEach
-//    public void setUp(){
-//        testUser.username = "agent";
-//        testUser.password = "password";
-//        MockitoAnnotations.openMocks(this);
-//        testInstance = new LoginService(mockedDAO);
-//        Mockito.when(mockedDAO.login("agent")).thenReturn(testUser);
-//    }
+
+    @BeforeEach
+    public void setUp(){
+        testUser = new  User(
+                1,
+                "UserName",
+                "Password",
+                "Blake",
+                "Jones",
+                "test@test.test",
+                new UserRole(1, "Employee"));
+        MockitoAnnotations.openMocks(this);
+        testInstance = new LoginService(mockedDAO);
+        Mockito.when(mockedDAO.getUserByUsername("UserName")).thenReturn(testUser);
+
+    }
 
     @Test
     public void testLoginSuccess(){
-
+        assertTrue(testInstance.login("UserName", "password"));
     }
 
     @Test
     public void testLoginFailUsername(){
-
+        assertFalse(testInstance.login("NotUserName", "password"));
     }
 
     @Test
     public void testLoginFailPassword(){
+        assertFalse(testInstance.login("UserName", "Notpassword"));
 
     }
 
     @Test
     public void testLoginFailBoth(){
-
+        assertTrue(testInstance.login("NotUserName", "Notpassword"));
     }
 
 }
