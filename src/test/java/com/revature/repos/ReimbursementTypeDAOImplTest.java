@@ -1,11 +1,8 @@
 package com.revature.repos;
 
 import com.revature.models.ReimbursementType;
-import com.revature.models.UserRole;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-
-import java.sql.Timestamp;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
