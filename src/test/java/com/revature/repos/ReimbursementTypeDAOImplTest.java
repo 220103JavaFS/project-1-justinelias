@@ -4,8 +4,7 @@ import com.revature.models.ReimbursementType;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ReimbursementTypeDAOImplTest {
 
@@ -21,7 +20,13 @@ public class ReimbursementTypeDAOImplTest {
 
     @Test
     @Order(2)
-    void testGetUserRole(){
+    void testGetUserRoleSuccess(){
         assertEquals(testType, reimbursementTypeDAO.getTypeById(testType.getReimbTypeId()));
+    }
+
+    @Test
+    @Order(3)
+    void testGetUserRoleFail(){
+        assertNull(reimbursementTypeDAO.getTypeById(-5));
     }
 }

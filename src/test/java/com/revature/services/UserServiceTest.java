@@ -47,19 +47,19 @@ public class UserServiceTest {
         assertEquals(testUser, testInstance.getUserById(testUser.getErsUsersId()));
     }
 
-//    @Test
-//    public void testGetUserByIdFail(){
-//        assertNull(testInstance.getUserById(-5));
-//    }
+    @Test
+    public void testGetUserByIdFail(){
+        assertNull(testInstance.getUserById(-5));
+    }
 
     @Test
     public void testGetUserByUsernameSuccess(){
         assertEquals(testUser, testInstance.getUserByUsername(testUser.getErsUsername()));
     }
 
-//    @Test
-//    public void testGetUserByUsernameFail(){
-//        assertNull(testInstance.getUserByUsername(testUser.getErsUsername()));
-//    }
+    @Test
+    public void testGetUserByUsernameFail(){
+        assertNull(testInstance.getUserByUsername("Userrrrname"));
+    }
 
 }
