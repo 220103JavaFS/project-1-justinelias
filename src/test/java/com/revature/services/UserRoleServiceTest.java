@@ -8,8 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UserRoleServiceTest {
 
@@ -39,9 +38,9 @@ public class UserRoleServiceTest {
         assertEquals(testRole, testInstance.getRoleById(testRole.getErsUserRoleId()));
     }
 
-//    @Test
-//    public void testGetRoleByIdFail(){
-//        assertNull(testInstance.getRoleById(-5));
-//    }
+    @Test
+    public void testGetRoleByIdFail(){
+        assertNull(testInstance.getRoleById(-5));
+    }
 
 }

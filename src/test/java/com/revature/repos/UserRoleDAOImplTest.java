@@ -4,8 +4,7 @@ import com.revature.models.UserRole;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UserRoleDAOImplTest {
 
@@ -21,8 +20,14 @@ public class UserRoleDAOImplTest {
 
     @Test
     @Order(2)
-    void testGetUserRole(){
+    void testGetUserRoleSuccess(){
         assertEquals(testRole, userRoleDAO.getRoleById(testRole.getErsUserRoleId()));
+    }
+
+    @Test
+    @Order(3)
+    void testGetUserRoleFail(){
+        assertNull(userRoleDAO.getRoleById(-5));
     }
 
 }

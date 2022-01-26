@@ -5,8 +5,7 @@ import com.revature.models.UserRole;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UserDAOImplTest {
 
@@ -29,16 +28,27 @@ public class UserDAOImplTest {
 
     @Test
     @Order(2)
-    void testGetUserById(){
+    void testGetUserByIdSuccess(){
         assertEquals(testUser, userDAO.getUserById(testUser.getErsUsersId()));
     }
 
     @Test
     @Order(3)
-    void testGetUserByUsername(){
+    void testGetUserByIdFail(){
+        assertNull(userDAO.getUserById(-5));
+    }
+
+    @Test
+    @Order(4)
+    void testGetUserByUsernameSuccess(){
         assertEquals(testUser, userDAO.getUserByUsername(testUser.getErsUsername()));
     }
 
+    @Test
+    @Order(5)
+    void testGetUserByUsernameFail(){
+        assertNull(userDAO.getUserByUsername("Userrrrrrrrname"));
+    }
 
 
 
