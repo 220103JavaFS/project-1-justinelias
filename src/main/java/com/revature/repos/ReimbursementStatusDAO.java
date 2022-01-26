@@ -4,5 +4,7 @@ import com.revature.models.ReimbursementStatus;
 
 public interface ReimbursementStatusDAO {
 
-    ReimbursementStatus getStatusById(int id);
+    public ReimbursementStatus getStatusById(int id);
+
+    public boolean addStatus(ReimbursementStatus reimbursementStatus);
 }

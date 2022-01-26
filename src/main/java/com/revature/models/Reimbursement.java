@@ -29,7 +29,7 @@ public class Reimbursement {
         this.reimbType = reimbType;
     }
 
-    public Reimbursement(2 reimbId, double reimbAmount, Timestamp reimbSubmitted, Timestamp reimbResolved, String business_dinner, User reimbAuthor, User reimbResolver, String resolved, String food) {
+    public Reimbursement(int reimbId, double reimbAmount, Timestamp reimbSubmitted, Timestamp reimbResolved, String business_dinner, User reimbAuthor, User reimbResolver, String resolved, String food) {
     }
 
     public int getReimbId() {
