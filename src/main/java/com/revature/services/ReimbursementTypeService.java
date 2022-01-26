@@ -1,6 +1,7 @@
 package com.revature.services;
 
 import com.revature.models.ReimbursementType;
+import com.revature.repos.ReimbursementTypeDAO;
 
 public class ReimbursementTypeService {
 

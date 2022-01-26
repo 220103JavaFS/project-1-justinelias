@@ -6,9 +6,10 @@ import com.revature.repos.UserDAOImpl;
 
 public class LoginService {
 
-    UserDAO userDAO = new UserDAOImpl();
+    private UserDAO userDAO;
 
     public LoginService() {
+        this.userDAO = new UserDAOImpl();
     }
 
     public LoginService(UserDAO userDAO) {

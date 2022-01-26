@@ -9,8 +9,15 @@ import java.util.List;
 
 public class ReimbursementService {
 
-    private ReimbursementDAO reimbursementDAO = new ReimbursementDAOImpl();
+    private ReimbursementDAO reimbursementDAO;
 
+    public ReimbursementService() {
+        this.reimbursementDAO = new ReimbursementDAOImpl();
+    }
+
+    public ReimbursementService(ReimbursementDAO reimbursementDAO) {
+        this.reimbursementDAO = reimbursementDAO;
+    }
 
     public boolean addReimb(Reimbursement reimbursement) {
         return false;
