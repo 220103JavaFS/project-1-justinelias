@@ -23,7 +23,7 @@ public class ReimbursementServiceTest {
     private ReimbursementDAO mockedDAO;
 
     public Reimbursement testReimbursement = new Reimbursement();
-//    public List<testReimbursement> list = new ArrayList<Reimbursement>(Reimbursement testReimbursement);
+
 
     @BeforeEach
     public void setUp(){
@@ -37,8 +37,10 @@ public class ReimbursementServiceTest {
                 new ReimbursementStatus(1, "RESOLVED"),
                 new ReimbursementType(1,"FOOD"));
         MockitoAnnotations.openMocks(this);
+         List<Reimbursement> list = new ArrayList<Reimbursement>();
+         list.add(testReimbursement);
         testInstance = new ReimbursementService(mockedDAO);
-        Mockito.when(mockedDAO.getAllReimbs(List<Reimbursement>)).thenReturn(testReimbursement);
+        Mockito.when(mockedDAO.getAllReimbs()).thenReturn(list);
         Mockito.when(mockedDAO.addReimb(testReimbursement)).thenReturn(true);
         Mockito.when(mockedDAO.updateReimb(testReimbursement)).thenReturn(true);
 

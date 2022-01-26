@@ -5,7 +5,17 @@ import com.revature.repos.UserDAOImpl;
 import com.revature.repos.UserDAO;
 
 public class UserService {
-    private UserDAO userDao = new UserDAOImpl();
+//    private UserDAO userDao = new UserDAOImpl();
+
+    private UserDAO userDAO;
+
+    public UserService(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
+
+    public UserService() {
+        this.userDAO = new UserDAOImpl();
+    }
 
     public User getUserById(int id) {
         return userDao.getUserById(id);
