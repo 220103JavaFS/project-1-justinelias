@@ -3,6 +3,7 @@ package com.revature.services;
 import com.revature.models.User;
 import com.revature.repos.UserDAO;
 import com.revature.repos.UserDAOImpl;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 public class LoginService {
 
@@ -17,6 +18,11 @@ public class LoginService {
     }
 
     public boolean login(String username, String password) {
-        return false;
+        User user = userDAO.getUserByUsername(username);
+        if(user != null) {
+            return BCrypt.checkpw(password, user.getErsPassword());
+        }else{
+            return false;
+        }
     }
 }

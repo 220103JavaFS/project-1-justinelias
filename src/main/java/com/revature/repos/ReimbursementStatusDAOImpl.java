@@ -7,4 +7,9 @@ public class ReimbursementStatusDAOImpl implements ReimbursementStatusDAO{
     public ReimbursementStatus getStatusById(int id) {
         return null;
     }
+
+    @Override
+    public boolean addStatus(ReimbursementStatus reimbursementStatus) {
+        return false;
+    }
 }

@@ -27,7 +27,7 @@ public class LoginServiceTest {
         testUser = new  User(
                 1,
                 "UserName",
-                "Password",
+                "$2a$10$aQWQsRhNqAlIvG7M4lliouKpzJlZmW3y5Siwx762NCC5DgzfbtSES",
                 "Blake",
                 "Jones",
                 "test@test.test",
@@ -40,12 +40,12 @@ public class LoginServiceTest {
 
     @Test
     public void testLoginSuccess(){
-        assertTrue(testInstance.login("UserName", "password"));
+        assertTrue(testInstance.login("UserName", "PassSw0Rd555"));
     }
 
     @Test
     public void testLoginFailUsername(){
-        assertFalse(testInstance.login("NotUserName", "password"));
+        assertFalse(testInstance.login("NotUserName", "PassSw0Rd555"));
     }
 
     @Test
@@ -56,7 +56,7 @@ public class LoginServiceTest {
 
     @Test
     public void testLoginFailBoth(){
-        assertTrue(testInstance.login("NotUserName", "Notpassword"));
+        assertFalse(testInstance.login("NotUserName", "Notpassword"));
     }
 
 }
