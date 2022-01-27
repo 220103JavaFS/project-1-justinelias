@@ -9,8 +9,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ReimbursementStatusServiceTest {
 
@@ -38,5 +37,10 @@ public class ReimbursementStatusServiceTest {
     @Test
     public void testGetStatusByIdSuccess(){
         assertEquals(testStatus, testInstance.getStatusById(testStatus.getReimbStatusId()));
+    }
+
+    @Test
+    public void testGetStatusByIdFail(){
+        assertNull(testInstance.getStatusById(-1));
     }
 }
