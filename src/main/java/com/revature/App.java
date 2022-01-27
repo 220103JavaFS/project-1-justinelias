@@ -13,9 +13,9 @@ public class App {
     private static Logger log = LoggerFactory.getLogger(App.class);
 
     public static void main(String[] args) {
-        app = Javalin.create((config -> {
-            config.addStaticFiles("", Location.EXTERNAL);
-        }));
+        app = Javalin.create();//(config -> {
+            //config.addStaticFiles("", Location.EXTERNAL);
+       // }));
         configure();
         app.start();
     }
