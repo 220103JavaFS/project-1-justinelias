@@ -1,6 +1,6 @@
 package com.revature;
 
-import com.revature.controllers.Controller;
+import com.revature.controllers.*;
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
 import org.slf4j.Logger;
@@ -16,7 +16,8 @@ public class App {
         app = Javalin.create();//(config -> {
             //config.addStaticFiles("", Location.EXTERNAL);
        // }));
-        configure();
+        configure(new LoginController(), new ReimbursementController(), new ReimbursementStatusController(),
+            new ReimbursementTypeController(), new UserController(), new UserRoleController());
         app.start();
     }
 
