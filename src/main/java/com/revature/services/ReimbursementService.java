@@ -6,7 +6,6 @@ import com.revature.repos.ReimbursementDAOImpl;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ReimbursementService {
@@ -16,18 +15,21 @@ public class ReimbursementService {
     public ReimbursementService() {
         this.reimbursementDAO = new ReimbursementDAOImpl();
     }
-
     public ReimbursementService(ReimbursementDAO reimbursementDAO) {
         this.reimbursementDAO = reimbursementDAO;
     }
 
 
-
     public boolean addReimb(Reimbursement reimbursement) {
+        //generate timestamp for submission time
         Timestamp submissionTime = Timestamp.valueOf(LocalDateTime.now());
+        reimbursement.setReimbSubmitted(submissionTime);
 
-        if(reimbursement.getReimbAmount() > 0){
+        //verify that amount, author  id, and type id are all greater than zero
+        if(reimbursement.getReimbAmount() > 0 && reimbursement.getReimbAuthor().getErsUsersId() > 0
+            && reimbursement.getReimbType().getReimbTypeId() > 0){
 
+            return reimbursementDAO.addReimb(reimbursement);
         }
 
         return false;

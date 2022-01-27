@@ -17,9 +17,19 @@ public class ReimbursementStatusService {
     }
 
     public ReimbursementStatus getStatusById(int id) {
-        return null;
+        if(id > 0){
+            return reimbursementStatusDAO.getStatusById(id);
+        }else{
+            return null;
+        }
+
     }
     public boolean addStatus(ReimbursementStatus reimbursementStatus){
-        return false;
+        if(reimbursementStatus.getReimbStatusId() > 0){
+            return reimbursementStatusDAO.addStatus(reimbursementStatus);
+        }else{
+            return false;
+        }
+
     }
 }
