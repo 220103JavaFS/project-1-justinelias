@@ -4,10 +4,7 @@ import com.revature.models.ReimbursementType;
 import com.revature.models.UserRole;
 import com.revature.utils.ConnectionUtil;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class UserRoleDAOImpl implements UserRoleDAO{
 
@@ -37,6 +34,17 @@ public class UserRoleDAOImpl implements UserRoleDAO{
 
     @Override
     public boolean addRole(UserRole userRole) {
+        try(Connection conn = ConnectionUtil.getConnection()){
+            String sql = "INSERT INTO ers_user_roles (user_role,ers_user_role_id) " +
+                    "VALUES ("+userRole.getUserRole()+"?, "+userRole.getErsUserRoleId()+");";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, userRole.getUserRole());
+            return (statement.executeUpdate() > 0);
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
         return false;
     }
-}
+    }
+
