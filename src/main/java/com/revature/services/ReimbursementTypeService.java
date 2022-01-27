@@ -15,9 +15,19 @@ public class ReimbursementTypeService {
         this.reimbursementTypeDAO = reimbursementTypeDAO;
     }
     public ReimbursementType getTypeById(int id) {
-        return null;
+        if(id > 0){
+            return reimbursementTypeDAO.getTypeById(id);
+        }else{
+            return null;
+        }
+
     }
-    public boolean addType(ReimbursementType reimbType){
-        return false;
+
+    public boolean addType(ReimbursementType reimbursementType){
+        if(reimbursementType.getReimbTypeId() > 0){
+            return reimbursementTypeDAO.addType(reimbursementType);
+        }else{
+            return false;
+        }
     }
 }

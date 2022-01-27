@@ -18,10 +18,18 @@ public class UserRoleService {
 
 
     public UserRole getRoleById(int id) {
-        return userRoleDAO.getRoleById(id);
+        if(id>0){
+            return userRoleDAO.getRoleById(id);
+        }else{
+            return null;
+        }
     }
 
     public boolean addRole(UserRole userRole){
-        return false;
+        if(userRole.getErsUserRoleId() > 0){
+            return userRoleDAO.addRole(userRole);
+        }else{
+            return false;
+        }
     }
 }

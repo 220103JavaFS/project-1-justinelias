@@ -18,14 +18,26 @@ public class UserService {
     }
 
     public User getUserById(int id) {
-        return userDao.getUserById(id);
+        if (id > 0) {
+            return userDao.getUserById(id);
+        } else {
+            return null;
+        }
     }
 
     public User getUserByUsername(String ersUsername) {
-        return userDao.getUserByUsername(ersUsername);
+        if (ersUsername!=null){
+            return userDao.getUserByUsername(ersUsername);
+        }else{
+            return null;
+        }
     }
 
-    public boolean addUser(User user){
-        return false;
+    public boolean addUser(User user) {
+        if (user.getErsUsername() != null) {
+            return userDao.addUser(user);
+        } else {
+            return false;
+        }
     }
 }
