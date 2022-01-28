@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ReimbursementStatusDAOImplTest {
     private static ReimbursementStatusDAO reimbursementStatusDAO = new ReimbursementStatusDAOImpl();
 
-    private static ReimbursementStatus testStatus = new ReimbursementStatus(8, "Approved");
+    private static ReimbursementStatus testStatus = new ReimbursementStatus(9, "Approved");
 
     @Test
     @Order(1)

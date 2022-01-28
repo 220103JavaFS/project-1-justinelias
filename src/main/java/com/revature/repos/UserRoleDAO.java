@@ -6,4 +6,6 @@ public interface UserRoleDAO {
 
     UserRole getRoleById(int id);
     public boolean addRole(UserRole userRole);
+
+    UserRole getUserRole(String userRole);
 }

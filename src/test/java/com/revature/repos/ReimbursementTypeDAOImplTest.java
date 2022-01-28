@@ -10,7 +10,7 @@ public class ReimbursementTypeDAOImplTest {
 
     private static ReimbursementTypeDAO reimbursementTypeDAO = new ReimbursementTypeDAOImpl();
 
-    private static ReimbursementType testType = new ReimbursementType(9, "Transportation");
+    private static ReimbursementType testType = new ReimbursementType(1, "Lodging");
 
     @Test
     @Order(1)

@@ -7,11 +7,11 @@ import com.revature.utils.ConnectionUtil;
 import java.sql.*;
 
 public class UserDAOImpl implements UserDAO {
-
+private UserRoleDAO userRoleDAO = new UserRoleDAOImpl();
     @Override
     public User getUserById(int id) {
         try(Connection conn = ConnectionUtil.getConnection()){
-            String sql = "SELECT * FROM ers_users WHERE ers_users_id = "+id+";";
+            String sql = "SELECT * FROM ers_users WHERE ers_users_id="+id+";";
             Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery(sql);
 
@@ -20,9 +20,18 @@ public class UserDAOImpl implements UserDAO {
             if(result.next()){
                 user.setErsUsersId(result.getInt("ers_users_id"));
                 user.setErsUsername(result.getString("ers_username"));
+                user.setErsPassword(result.getString("ers_password"));
+                user.setUserFirstName(result.getString("user_first_name"));
+                user.setUserLastname(result.getString("user_last_name"));
+                user.setUserEmail(result.getString("user_email"));
+//                user.setUserRole(userRoleDAO.getUserRole(result.getString("ers_user_role")));
+//                user.setUserRole(userRoleDAO.getRoleById(result.getInt("ers_user_role_id")));
+                return user;
+            }else{
+                return null;
             }
 
-            return user;
+
 
         }catch (SQLException e){
             e.printStackTrace();
@@ -34,23 +43,36 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User getUserByUsername(String ersUsername) {
         try(Connection conn = ConnectionUtil.getConnection()){
-            String sql = "SELECT * FROM ers_users WHERE ers_username= "+", ?, "+";";
-            Statement statement = conn.createStatement();
-            ResultSet result = statement.executeQuery(sql);
+            String sql = "SELECT * FROM ers_users WHERE ers_username= ?;";
+
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            statement.setString(1, ersUsername);
+
+            ResultSet result = statement.executeQuery();
 
             User user = new User();
 
             if(result.next()){
                 user.setErsUsersId(result.getInt("ers_users_id"));
                 user.setErsUsername(result.getString("ers_username"));
-            }
+                user.setErsPassword(result.getString("ers_password"));
+                user.setUserFirstName(result.getString("user_first_name"));
+                user.setUserLastname(result.getString("user_last_name"));
+                user.setUserEmail(result.getString("user_email"));
+//                user.setUserRole(userRoleDAO.getUserRole(result.getString("ers_user_role")));
+//                user.setUserRole(userRoleDAO.getRoleById(result.getInt("ers_user_role_id")));
 
+            }
             return user;
+
+
+
 
         }catch (SQLException e){
             e.printStackTrace();
         }
-        return null;
+        return new User();
     }
 
     @Override

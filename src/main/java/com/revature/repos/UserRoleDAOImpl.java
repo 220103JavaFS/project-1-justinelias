@@ -46,5 +46,10 @@ public class UserRoleDAOImpl implements UserRoleDAO{
         }
         return false;
     }
+
+    @Override
+    public UserRole getUserRole(String ers_user_role) {
+        return null;
     }
+}
 
