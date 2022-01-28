@@ -10,7 +10,7 @@ public class UserService {
     private UserDAO userDAO;
 
     public UserService(UserDAO userDAO) {
-        this.userDAO = userDAO;
+        this.userDao = userDAO;
     }
 
     public UserService() {

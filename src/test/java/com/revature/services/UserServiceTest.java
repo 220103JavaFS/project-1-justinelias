@@ -3,6 +3,7 @@ package com.revature.services;
 import com.revature.models.User;
 import com.revature.models.UserRole;
 import com.revature.repos.UserDAO;
+import com.revature.repos.UserDAOImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -16,7 +17,7 @@ public class UserServiceTest {
     private UserService testInstance;
 
     @Mock
-    private UserDAO mockedDAO;
+    private UserDAOImpl mockedDAO;
 
     private User testUser = new User();
 

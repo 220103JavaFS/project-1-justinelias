@@ -18,9 +18,12 @@ public class ReimbursementStatusDAOImpl implements ReimbursementStatusDAO{
             if(result.next()){
                 status.setReimbStatusId(result.getInt("reimb_status_id"));
                 status.setReimbStatus(result.getString("reimb_status"));
+                return status;
+            }else{
+                return null;
             }
 
-            return status;
+
 
         }catch (SQLException e){
             e.printStackTrace();
