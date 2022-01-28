@@ -5,15 +5,13 @@ import com.revature.models.ReimbursementStatus;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class ReimbursementStatusDAOImplTest {
     private static ReimbursementStatusDAO reimbursementStatusDAO = new ReimbursementStatusDAOImpl();
 
-    private static ReimbursementStatus testStatus = new ReimbursementStatus(1, "Approved");
+    private static ReimbursementStatus testStatus = new ReimbursementStatus(8, "Approved");
 
     @Test
     @Order(1)
@@ -31,6 +29,6 @@ public class ReimbursementStatusDAOImplTest {
     @Test
     @Order(3)
     void testGetStatusByIdFail(){
-        assertNull(reimbursementStatusDAO.getStatusById(-1));
+        assertNull(reimbursementStatusDAO.getStatusById(-2));
     }
 }
