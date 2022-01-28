@@ -11,14 +11,14 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User getUserById(int id) {
         try(Connection conn = ConnectionUtil.getConnection()){
-            String sql = "SELECT * FROM ers_users WHERE ers_user_id = "+id+";";
+            String sql = "SELECT * FROM ers_users WHERE ers_users_id = "+id+";";
             Statement statement = conn.createStatement();
             ResultSet result = statement.executeQuery(sql);
 
             User user = new User();
 
             if(result.next()){
-                user.setErsUsersId(result.getInt("ers_user_id"));
+                user.setErsUsersId(result.getInt("ers_users_id"));
                 user.setErsUsername(result.getString("ers_username"));
             }
 
@@ -41,7 +41,7 @@ public class UserDAOImpl implements UserDAO {
             User user = new User();
 
             if(result.next()){
-                user.setErsUsersId(result.getInt("ers_user_id"));
+                user.setErsUsersId(result.getInt("ers_users_id"));
                 user.setErsUsername(result.getString("ers_username"));
             }
 
