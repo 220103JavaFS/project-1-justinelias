@@ -1,6 +1,7 @@
 package com.revature.services;
 
 import com.revature.models.Reimbursement;
+import com.revature.models.User;
 import com.revature.repos.ReimbursementDAO;
 import com.revature.repos.ReimbursementDAOImpl;
 
@@ -40,11 +41,13 @@ public class ReimbursementService {
     }
 
     public boolean updateReimb(Reimbursement reimbursement) {
+        //Timestamp resolvedTime = Timestamp.valueOf(LocalDateTime.now());
         //check if resolver is not the same person as the author
         //and if resolved timestamp comes after submitted timestamp
-        if(!reimbursement.getReimbResolver().equals(reimbursement.getReimbAuthor()) &&
+        if(reimbursement.getReimbResolver().getErsUsersId() != reimbursement.getReimbAuthor().getErsUsersId() &&
             reimbursement.getReimbResolved().compareTo(reimbursement.getReimbSubmitted()) > 0){
-
+            //reimbursement.setReimbResolver(resolver);
+            //reimbursement.setReimbResolved(resolvedTime);
             return reimbursementDAO.updateReimb(reimbursement);
         }else{
             return false;

@@ -24,8 +24,7 @@ private UserRoleDAO userRoleDAO = new UserRoleDAOImpl();
                 user.setUserFirstName(result.getString("user_first_name"));
                 user.setUserLastname(result.getString("user_last_name"));
                 user.setUserEmail(result.getString("user_email"));
-//                user.setUserRole(userRoleDAO.getUserRole(result.getString("ers_user_role")));
-//                user.setUserRole(userRoleDAO.getRoleById(result.getInt("ers_user_role_id")));
+                user.setUserRole(userRoleDAO.getRoleById(result.getInt("user_role_id")));
                 return user;
             }else{
                 return null;
@@ -61,8 +60,10 @@ private UserRoleDAO userRoleDAO = new UserRoleDAOImpl();
                 user.setUserLastname(result.getString("user_last_name"));
                 user.setUserEmail(result.getString("user_email"));
 //                user.setUserRole(userRoleDAO.getUserRole(result.getString("ers_user_role")));
-//                user.setUserRole(userRoleDAO.getRoleById(result.getInt("ers_user_role_id")));
+                user.setUserRole(userRoleDAO.getRoleById(result.getInt("user_role_id")));
 
+            }else{
+                return null;
             }
             return user;
 
@@ -78,14 +79,15 @@ private UserRoleDAO userRoleDAO = new UserRoleDAOImpl();
     @Override
     public boolean addUser(User user) {
         try(Connection conn = ConnectionUtil.getConnection()){
-            String sql = "INSERT INTO ers_users (ers_username, ers_password, user_first_name " +
+            String sql = "INSERT INTO ers_users (ers_username, ers_password, user_first_name, " +
                     "user_last_name, user_email, user_role_id) " +
-                    "VALUES ("+user.getErsUsername()+", ?, ?, "+user.getErsPassword()+ ", ?,"
-                   +user.getUserFirstName()+", ?, "+user.getUserLastname()+", ?, "+user.getUserEmail()+", ?, "+
-                   ", 1, " +user.getUserRole().getErsUserRoleId()+", ?, ;";
+                    "VALUES (?, ?, ?, ?, ?, " +user.getUserRole().getErsUserRoleId()+");";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, user.getErsUsername());
-
+            statement.setString(2, user.getErsPassword());
+            statement.setString(3, user.getUserFirstName());
+            statement.setString(4, user.getUserLastname());
+            statement.setString(5, user.getUserEmail());
             return (statement.executeUpdate() > 0);
 
         }catch (SQLException e){

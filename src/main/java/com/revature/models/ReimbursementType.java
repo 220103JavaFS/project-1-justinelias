@@ -1,5 +1,7 @@
 package com.revature.models;
 
+import java.util.Objects;
+
 public class ReimbursementType {
 
     private int reimbTypeId;
@@ -27,6 +29,19 @@ public class ReimbursementType {
 
     public void setReimbType(String reimbType) {
         this.reimbType = reimbType;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ReimbursementType)) return false;
+        ReimbursementType that = (ReimbursementType) o;
+        return getReimbTypeId() == that.getReimbTypeId() && Objects.equals(getReimbType(), that.getReimbType());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getReimbTypeId(), getReimbType());
     }
 
     @Override

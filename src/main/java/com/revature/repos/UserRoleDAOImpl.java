@@ -21,6 +21,8 @@ public class UserRoleDAOImpl implements UserRoleDAO{
             if(result.next()){
                 userRole.setErsUserRoleId(result.getInt("ers_user_role_id"));
                 userRole.setUserRole(result.getString("user_role"));
+            }else{
+                return null;
             }
 
             return userRole;
@@ -36,7 +38,7 @@ public class UserRoleDAOImpl implements UserRoleDAO{
     public boolean addRole(UserRole userRole) {
         try(Connection conn = ConnectionUtil.getConnection()){
             String sql = "INSERT INTO ers_user_roles (user_role,ers_user_role_id) " +
-                    "VALUES ("+userRole.getUserRole()+"?, "+userRole.getErsUserRoleId()+");";
+                    "VALUES (?, "+userRole.getErsUserRoleId()+");";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, userRole.getUserRole());
             return (statement.executeUpdate() > 0);
@@ -48,8 +50,10 @@ public class UserRoleDAOImpl implements UserRoleDAO{
     }
 
     @Override
-    public UserRole getUserRole(String ers_user_role) {
+    public UserRole getUserRole(String userRole) {
         return null;
     }
+
+
 }
 

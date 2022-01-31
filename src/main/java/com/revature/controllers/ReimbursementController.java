@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 import com.revature.models.Reimbursement;
+import com.revature.models.User;
 import com.revature.services.ReimbursementService;
 import io.javalin.Javalin;
 import io.javalin.http.Handler;
@@ -40,7 +41,10 @@ public class ReimbursementController implements Controller{
     private Handler updateReimb = (ctx) -> {
         if (ctx.req.getSession(false)!=null){
             Reimbursement reimbursement = ctx.bodyAsClass(Reimbursement.class);
+            User user = (User) ctx.req.getSession().getAttribute("userInfo");
+            reimbursement.setReimbResolver(user);
            if(reimbursementService.updateReimb(reimbursement)){
+               ctx.json(user);
                ctx.status(202);
            }else{
                ctx.status(400);

@@ -35,7 +35,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO{
     @Override
     public List<Reimbursement> getAllReimbs() {
         try(Connection conn = ConnectionUtil.getConnection()){
-            String sql = "SELECT * FROM ers_reimbursement;";
+            String sql = "SELECT * FROM ers_reimbursement ORDER BY reimb_submitted DESC;";
 
             Statement statement = conn.createStatement();
 
