@@ -38,8 +38,8 @@ public class ReimbursementTypeDAOImpl implements ReimbursementTypeDAO{
     @Override
     public boolean addType(ReimbursementType reimbursementType) {
         try(Connection conn = ConnectionUtil.getConnection()){
-            String sql = "INSERT INTO ers_reimbursement_type (reimb_type, reimb_type_id) " +
-                    "VALUES ("+reimbursementType.getReimbType()+", ?);";
+            String sql = "INSERT INTO ers_reimbursement_type (reimb_type_id, reimb_type) " +
+                    "VALUES ("+reimbursementType.getReimbTypeId()+", ?);";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, reimbursementType.getReimbType());
             return (statement.executeUpdate() > 0);

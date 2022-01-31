@@ -12,7 +12,7 @@ public class UserDAOImplTest {
     private static UserDAO userDAO = new UserDAOImpl();
 
     private static User testUser = new User(
-            12345,
+            5,
             "UserName",
             "Passsssword123",
             "Tester",
