@@ -14,19 +14,19 @@ public class ReimbursementTypeDAOImplTest {
 
     @Test
     @Order(1)
-    void testAddRole(){
+    void testAddType(){
         assertTrue(reimbursementTypeDAO.addType(testType));
     }
 
     @Test
     @Order(2)
-    void testGetUserRoleSuccess(){
+    void testGetTypeSuccess(){
         assertEquals(testType, reimbursementTypeDAO.getTypeById(testType.getReimbTypeId()));
     }
 
     @Test
     @Order(3)
-    void testGetUserRoleFail(){
+    void testTypeFail(){
         assertNull(reimbursementTypeDAO.getTypeById(-5));
     }
 }

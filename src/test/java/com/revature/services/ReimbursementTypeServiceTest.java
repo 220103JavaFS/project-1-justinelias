@@ -24,7 +24,7 @@ public class ReimbursementTypeServiceTest {
         testType = new ReimbursementType(1, "Lodging");
         MockitoAnnotations.openMocks(this);
         testInstance = new ReimbursementTypeService(mockedDAO);
-        Mockito.when(mockedDAO.getTypeById(9)).thenReturn(testType);
+        Mockito.when(mockedDAO.getTypeById(1)).thenReturn(testType);
         Mockito.when(mockedDAO.addType(testType)).thenReturn(true);
     }
 

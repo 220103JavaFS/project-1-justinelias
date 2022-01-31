@@ -42,6 +42,7 @@ public class ReimbursementDAOImplTest {
     @Test
     @Order(3)
     void testUpdateReimbursementFail(){
+        testReimbursement.setReimbId(-5);
         assertFalse(reimbursementDAO.updateReimb(testReimbursement));
     }
 }
