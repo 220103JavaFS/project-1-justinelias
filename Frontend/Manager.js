@@ -1,7 +1,11 @@
 let reimbTbl = document.getElementById("reimbTbl");
 let toggleBtn = document.getElementById("toggleBtn");
+let logoutBtn = document.getElementById("logoutBtn");
 let reimbTblLength = document.getElementById("reimbHeader").cells.length;
 let spinner = document.getElementById("spinner");
+let modalBody = document.getElementById("modal-body");
+let statusBtn = document.getElementById("statusBtn");
+let greeting = document.getElementById("greeting");
 
 //get indices of all columns
 let idColIndx = document.getElementById("idCol").cellIndex;
@@ -18,27 +22,11 @@ let resolverLastNameColIndx = document.getElementById("resolverLastNameCol").cel
 let resolverEmailColColIndx = document.getElementById("resolverEmailCol").cellIndex;
 let statusColIndx = document.getElementById("statusCol").cellIndex;
 
-
-//create button to select approve or deny
-let statusBtn = document.createElement("div");
-statusBtn.classList.add("btn-group");
-
-let btnApprove = document.createElement("button");
-btnApprove.classList.add("btn", "btn-sm", "btn-success");
-btnApprove.type = "button";
-btnApprove.innerText = "Approve";
-statusBtn.appendChild(btnApprove);
-
-let btnDeny = document.createElement("button");
-btnDeny.classList.add("btn", "btn-sm", "btn-danger");
-btnDeny.type = "button";
-btnDeny.innerText = "Deny";
-statusBtn.appendChild(btnDeny);
-
 const url = "http://localhost:8080/";
 
 window.addEventListener("load", getAllReimbs); //load data when page opens
 toggleBtn.addEventListener("click", toggleResolvedRows);
+logoutBtn.addEventListener("click", logoutFunc);
 
 async function getAllReimbs(){
 
@@ -55,9 +43,19 @@ async function getAllReimbs(){
 
     if(response2.status===200){
         console.log("Login successful");
+        user = await response2.json();
+        sessionStorage.user = user;
+        greeting.innerText = "Hello "+user["userFirstName"]+" "+user["userLastname"]
     }else{
         console.log("Login unsuccessful. Returned status cose of: "+response2.status);
     }
+
+    // if(sessionStorage.user["userRole"]<2){
+    //     let myModal = new bootstrap.Modal(document.getElementById("myModal"));
+    //     modalBody.textContent = "You are not authorized"
+    //     myModal.show();
+    //     //modalBody.innerText = "You are not authorized";
+    // }
 
     //send GET request for all reimbursements
     let response = await fetch(url+"reimb", {
@@ -74,6 +72,25 @@ async function getAllReimbs(){
     }else{
         console.log("there was an error getting your reimbs.");
     }
+}
+
+//function for logout button
+async function logoutFunc(){
+    let response = await fetch(
+        url+"logout",
+        {
+          method : "POST",
+          credentials: "include"
+        }
+      );
+
+      if(response.status===200){
+          sessionStorage.clear();
+          console.log("Logged out");
+          //window.location.replace(url + "login.html");
+      }else{
+        console.log("Logout unsuccessful");
+      }
 }
 
 //function to fill reimb data into the table
@@ -143,10 +160,9 @@ function populateReimbs(reimbs){
             row.cells[statusColIndx].innerText = reimb["reimbStatus"]["reimbStatus"];
         }else{
             let selectionBtn = statusBtn.cloneNode(true);
-            selectionBtn.childNodes[0].addEventListener("click", function() {
-                updateReimb(reimb["reimbId"], reimb["reimbAuthor"]["ersUsersId"], reimb["reimbSubmitted"], 2);});
-            selectionBtn.childNodes[1].addEventListener("click", function() {
-                updateReimb(reimb["reimbId"], reimb["reimbAuthor"]["ersUsersId"], reimb["reimbSubmitted"], 3);});
+            selectionBtn.hidden = false;
+            selectionBtn.firstElementChild.addEventListener("click", function() {updateReimb(reimb, 2);});
+            selectionBtn.lastElementChild.addEventListener("click", function() {updateReimb(reimb, 3);});
             row.cells[statusColIndx].classList.add("text-center");
             row.cells[statusColIndx].appendChild(selectionBtn);
         }
@@ -165,34 +181,24 @@ function toggleResolvedRows(){
     }
 }
 
-async function updateReimb(reimbId, authorId, submissionTime, status){
-    //let spinner = document.createElement("div");
-    //spinner.classList.add("spinner-border", "text-primary")
-    let row = document.getElementById("reimb"+reimbId);
-    let removedBtn = row.cells[statusColIndx].removeChild(row.cells[statusColIndx].firstChild) ;
-    // while (row.cells[statusColIndx].firstChild) {
-    //     row.cells[statusColIndx].removeChild(row.cells[statusColIndx].firstChild);
-    // }
-    row.cells[statusColIndx].appendChild(spinner);
+async function updateReimb(reimb, status){
+    let row = document.getElementById("reimb"+reimb["reimbId"]); //get row associated with id
+    let removedBtn = row.cells[statusColIndx].removeChild(row.cells[statusColIndx].firstChild); //remove buttons
+    row.cells[statusColIndx].appendChild(spinner); //insert spinner
     let span = document.createElement("span");
     span.innerText = "Updating...";
-    row.cells[statusColIndx].appendChild(span);
+    row.cells[statusColIndx].appendChild(span); //insert text
+    //update spinner options
     spinner.hidden = false;
     spinner.style.removeProperty("width");
     spinner.style.removeProperty("height");
     spinner.classList.add("spinner-border-sm");
 
-    let resolvedTime = + new Date();
+    //update reimb with current time for resolved timestamp and chosen status
+    reimb["reimbResolved"] = + new Date();
+    reimb["reimbStatus"]["reimbStatusId"] = status;
 
-
-    let reimb = {
-        reimbId: reimbId,
-        reimbSubmitted: submissionTime,
-        reimbResolved: resolvedTime,
-        reimbAuthor: {ersUsersId: authorId},
-        reimbStatus: {reimbStatusId: status}
-    }
-
+    //send update request
     let response = await fetch(url+"reimb",
         {
             method:"PUT",
@@ -200,6 +206,7 @@ async function updateReimb(reimbId, authorId, submissionTime, status){
             credentials: "include"
         }
     );
+
 
     if(response.status===202){
         //find row of reimb id, change highlight, change status cell and resolver info
@@ -224,20 +231,20 @@ async function updateReimb(reimbId, authorId, submissionTime, status){
             hour: 'numeric',
             minute: 'numeric',
             hour12: false
-            }).format(new Date(resolvedTime));
+            }).format(reimb["reimbResolved"]);
         row.cells[resolverFirstNameColIndx].innerText = user["userFirstName"];
         row.cells[resolverLastNameColIndx].innerText = user["userLastname"];
         row.cells[resolverEmailColColIndx].innerText = user["userEmail"];
 
-    }else{
+    }else if(response.status==400){
         let myModal = new bootstrap.Modal(document.getElementById("myModal"));
         myModal.show();
         row.cells[statusColIndx].removeChild(spinner);
         row.cells[statusColIndx].removeChild(span);
         row.cells[statusColIndx].appendChild(removedBtn);
+    }else{
+        row.cells[statusColIndx].removeChild(spinner);
+        row.cells[statusColIndx].removeChild(span);
+        row.cells[statusColIndx].appendChild(removedBtn);
     }
 }
-
-// function updateProgress(mutationsList, observer){
-//     console.log("hit");
-// }

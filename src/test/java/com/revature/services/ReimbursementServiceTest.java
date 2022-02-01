@@ -33,7 +33,7 @@ public class ReimbursementServiceTest {
                 Timestamp.valueOf("2022-01-01 14:35:00"),
                 "Business Dinner",
                 new User(1,"username", "password", "Janet", "Fields", "email.email", new UserRole(1, "EMPLOYEE")),
-                new User(1,"username", "password", "Janet", "Fields", "email.email", new UserRole(1, "EMPLOYEE")),
+                new User(2,"username2", "password2", "Janet2", "Fields2", "email.email2", new UserRole(2, "MANAGER")),
                 new ReimbursementStatus(1, "RESOLVED"),
                 new ReimbursementType(1,"FOOD"));
         MockitoAnnotations.openMocks(this);

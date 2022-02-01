@@ -43,12 +43,15 @@ public class ReimbursementController implements Controller{
             Reimbursement reimbursement = ctx.bodyAsClass(Reimbursement.class);
             User user = (User) ctx.req.getSession().getAttribute("userInfo");
             reimbursement.setReimbResolver(user);
-           if(reimbursementService.updateReimb(reimbursement)){
+
+            if(user.getUserRole().getErsUserRoleId() < 2){
+                ctx.status(401);
+            }else if(reimbursementService.updateReimb(reimbursement)){
                ctx.json(user);
                ctx.status(202);
-           }else{
+            }else{
                ctx.status(400);
-           }
+            }
         }else{
             ctx.status(401);
         }
