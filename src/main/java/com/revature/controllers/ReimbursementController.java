@@ -14,7 +14,9 @@ public class ReimbursementController implements Controller{
 
     private Handler newReimb = (ctx) ->{
         if(ctx.req.getSession(false)!=null){
+            User user = (User) ctx.req.getSession().getAttribute("userInfo");
             Reimbursement reimbursement = ctx.bodyAsClass(Reimbursement.class);
+            reimbursement.setReimbAuthor(user);
             if(reimbursementService.addReimb(reimbursement)){
                 ctx.status(201);
             }else{
