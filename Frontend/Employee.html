@@ -16,8 +16,8 @@
             <thead class = "text-center">
             <tr>
                 <th colspan="4" class="table-primary">Reimbursement Information</th>
-                <th colspan="4" class="table-info">Requester</th>
-                <th colspan="4" class="table-secondary">Resolver</th>
+                <!-- <th colspan="4" class="table-info">Requester</th>
+                <th colspan="4" class="table-secondary">Resolver</th> -->
                 <th><button id="toggleBtn" class="btn btn-primary btn-sm">Toggle Resolved Entries</button></th>
             </tr>
             <tr id="reimbHeader">
@@ -25,14 +25,14 @@
                 <th id="amountCol" class="table-primary">Amount</th>
                 <th id="typeCol" class="table-primary">Type</th>
                 <th id="descCol" class="table-primary">Description</th>
-                <th id="authorSubmittedCol" class="table-info">Submitted</th>
+                <!-- <th id="authorSubmittedCol" class="table-info">Submitted</th>
                 <th id="authorFirstNameCol" class="table-info">First Name</th>
                 <th id="authorLastNameCol" class="table-info">Last Name</th>
                 <th id="authorEmailCol" class="table-info">Email</th>
                 <th id="resolverResolvedCol" class="table-secondary">Resolved</th>
                 <th id="resolverFirstNameCol" class="table-secondary">First Name</th>
                 <th id="resolverLastNameCol" class="table-secondary">Last Name</th>
-                <th id="resolverEmailCol" class="table-secondary">Email</th>
+                <th id="resolverEmailCol" class="table-secondary">Email</th> -->
                 <th id="statusCol">Status</th>
             </tr>
             </thead>
@@ -60,7 +60,7 @@
         <label for="firstName">First Name</label><br>
         <input type="text" id="firstName" name="firstName"> <br>
 
-        <label for="lastName">Last Name</label><br>
+        <label for="lastName" class="table-primary">Last Name</label><br>
         <input type="text" id="lastName" name="lastName"> <br>
 
         <label for="reimbAmount">Reimbursement Amount</label><br>
