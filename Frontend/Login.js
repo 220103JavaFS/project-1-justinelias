@@ -24,17 +24,15 @@ async function loginFunc(){
       ersUsername: userName.value,
       ersPassword: passWord.value
     }
-    console.log(user);
     let response = await fetch(
       url+"login",
       {
-        // mode: "no-cors",
         method : "POST",
         body : JSON.stringify(user),
         credentials: "include"
       }
     );
-//    console.log(response.json());
+
   
     if(response.status===200){
       let userCredentials = await response.json();
@@ -48,6 +46,6 @@ async function loginFunc(){
             window.location.replace(url + "Manager.html");
         }
     }else{
-      console.log("Login unsuccessful. Returned status code of:"+response.status);
+      alert("Not So fast, my friend! Check those credentials. Returned status code of:"+ response.status);
     }
 }

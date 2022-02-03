@@ -1,16 +1,25 @@
 const url = "http://localhost:8080/";
 
-// if (sessionStorage.getItem("userSession") == null ){
-//     window.location.replace(url + "Login.html");
-//   }
-
 
 let addReimbBtn = document.getElementById("addReimbButton");
 let reimbTable = document.getElementById("reimbTbl");
 let logoutBtn = document.getElementById("logoutBtn");
+let greeting = document.getElementById("greeting")
+let userCredentials = JSON.parse(sessionStorage.getItem('userSession'));
+let spinner = document.getElementById("spinner");
+
 
 logoutBtn.addEventListener("click", logoutFunc);
 addReimbBtn.addEventListener("click", addReimb);
+
+
+if (sessionStorage.getItem("userSession") == null ){
+     window.location.replace(url + "Login.html");
+   }else{
+   greeting.innerText = "Hello "+userCredentials["userFirstName"]+" "+userCredentials["userLastname"];
+   getAllReimbs();
+   spinner.hidden = true;
+   }
 
 async function logoutFunc(){
     
@@ -33,22 +42,7 @@ async function logoutFunc(){
 
 async function addReimb(){
 console.log("button worked");
-// //temp code just to get authorization in testing
-// let user = {ersUsername:"ChristmasCarol", ersPassword:"PassSw0Rd555"}
 
-// let response2 = await fetch(url+"login",
-//     {
-//         method:"POST",
-//         body : JSON.stringify(user),
-//         credentials: "include"
-//     }
-// );
-
-// if(response2.status===200){
-//     console.log("Login successful");
-// }else{
-//     console.log("Login unsuccessful. Returned status cose of: "+response2.status);
-// }
     let reimbTypeNumber = 0;
 
     if (document.querySelector("#reimbType").value=="Lodging"){
@@ -99,7 +93,6 @@ console.log("got to allReimbs Func")
 
 function populateReimbs(reimbs){
 console.log("got to populate func");
-let userCredentials = JSON.parse(sessionStorage.getItem('userSession'));
 console.log(userCredentials);
     reimbTable.innerHTML = "";
     for(let reimb of reimbs){
