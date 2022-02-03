@@ -25,7 +25,6 @@ public class ReimbursementDAOImpl implements ReimbursementDAO{
             statement.setString(2, reimbursement.getReimbDescription());
             statement.setBytes(3, reimbursement.getReimbReceipt());
 
-
             return (statement.executeUpdate() > 0);
 
         }catch (SQLException e){
@@ -105,4 +104,5 @@ public class ReimbursementDAOImpl implements ReimbursementDAO{
         }
         return null;
     }
+
 }

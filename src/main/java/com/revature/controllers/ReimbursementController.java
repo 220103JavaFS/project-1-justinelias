@@ -64,9 +64,7 @@ public class ReimbursementController implements Controller{
             int reimbId = Integer.parseInt(ctx.pathParam("id"));
             byte[] receipt = reimbursementService.getReimbReceipt(reimbId);
             if(receipt!=null){
-                Reimbursement reimb = new Reimbursement();
-                reimb.setReimbReceipt(receipt);
-                ctx.json(reimb);
+                ctx.json(receipt);
                 ctx.status(200);
             }else{
                 ctx.status(400);
@@ -81,6 +79,6 @@ public class ReimbursementController implements Controller{
         app.post("/reimb", newReimb);
         app.get("/reimb", getAllReimbs);
         app.put("/reimb", updateReimb);
-        app.post("/reimb/receipt/{id}", getReimbReceipt);
+        app.get("/reimb/receipt/{id}", getReimbReceipt);
     }
 }
