@@ -1,4 +1,5 @@
 package com.revature.models;
+
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -9,6 +10,7 @@ public class Reimbursement {
     private Timestamp reimbSubmitted;
     private Timestamp reimbResolved;
     private String reimbDescription;
+    private byte[] reimbReceipt;
     private User reimbAuthor;
     private User reimbResolver;
     private ReimbursementStatus reimbStatus;
@@ -17,12 +19,13 @@ public class Reimbursement {
     public Reimbursement() {
     }
 
-    public Reimbursement(int reimbId, double reimbAmount, Timestamp reimbSubmitted, Timestamp reimbResolved, String reimbDescription, User reimbAuthor, User reimbResolver, ReimbursementStatus reimbStatus, ReimbursementType reimbType) {
+    public Reimbursement(int reimbId, double reimbAmount, Timestamp reimbSubmitted, Timestamp reimbResolved, String reimbDescription, byte[] reimbReceipt, User reimbAuthor, User reimbResolver, ReimbursementStatus reimbStatus, ReimbursementType reimbType) {
         this.reimbId = reimbId;
         this.reimbAmount = reimbAmount;
         this.reimbSubmitted = reimbSubmitted;
         this.reimbResolved = reimbResolved;
         this.reimbDescription = reimbDescription;
+        this.reimbReceipt = reimbReceipt;
         this.reimbAuthor = reimbAuthor;
         this.reimbResolver = reimbResolver;
         this.reimbStatus = reimbStatus;
@@ -102,6 +105,14 @@ public class Reimbursement {
 
     public void setReimbType(ReimbursementType reimbType) {
         this.reimbType = reimbType;
+    }
+
+    public byte[] getReimbReceipt() {
+        return reimbReceipt;
+    }
+
+    public void setReimbReceipt(byte[] reimbReceipt) {
+        this.reimbReceipt = reimbReceipt;
     }
 
     @Override

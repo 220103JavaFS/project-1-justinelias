@@ -50,4 +50,8 @@ public class ReimbursementService {
             return false;
         }
     }
+
+    public byte[] getReimbReceipt(int reimbId){
+        return reimbursementDAO.getReimbReceipt(reimbId);
+    }
 }

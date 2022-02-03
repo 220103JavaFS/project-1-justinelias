@@ -17,12 +17,13 @@ public class ReimbursementDAOImpl implements ReimbursementDAO{
     public boolean addReimb(Reimbursement reimbursement) {
         try(Connection conn = ConnectionUtil.getConnection()){
             String sql = "INSERT INTO ers_reimbursement (reim_amount, reimb_submitted, " +
-                    "reimb_description, reimb_author, reimb_status_id, reimb_type_id) " +
-                    "VALUES ("+reimbursement.getReimbAmount()+", ?, ?, "+reimbursement.getReimbAuthor().getErsUsersId()+
+                    "reimb_description, reimb_receipt, reimb_author, reimb_status_id, reimb_type_id) " +
+                    "VALUES ("+reimbursement.getReimbAmount()+", ?, ?, ?, "+reimbursement.getReimbAuthor().getErsUsersId()+
                     ", 1, "+reimbursement.getReimbType().getReimbTypeId()+");";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setTimestamp(1, reimbursement.getReimbSubmitted());
             statement.setString(2, reimbursement.getReimbDescription());
+            statement.setBytes(3, reimbursement.getReimbReceipt());
 
             return (statement.executeUpdate() > 0);
 
@@ -49,6 +50,10 @@ public class ReimbursementDAOImpl implements ReimbursementDAO{
                 reimbursement.setReimbAmount(result.getDouble("reim_amount"));
                 reimbursement.setReimbSubmitted(result.getTimestamp("reimb_submitted"));
                 reimbursement.setReimbResolved(result.getTimestamp("reimb_resolved"));
+                byte[] b = result.getBytes("reimb_receipt");
+                if(b!=null){
+                    reimbursement.setReimbReceipt(b);
+                }
                 reimbursement.setReimbDescription(result.getString("reimb_description"));
                 reimbursement.setReimbAuthor(userDAO.getUserById(result.getInt("reimb_author")));
                 reimbursement.setReimbResolver(userDAO.getUserById(result.getInt("reimb_resolver")));
@@ -84,4 +89,20 @@ public class ReimbursementDAOImpl implements ReimbursementDAO{
         }
         return false;
     }
+
+    @Override
+    public byte[] getReimbReceipt(int reimbId) {
+        try(Connection conn = ConnectionUtil.getConnection()){
+            String sql = "SELECT reimb_receipt FROM ers_reimbursement WHERE reimb_id = "+reimbId+";";
+            Statement statement = conn.createStatement();
+            ResultSet result = statement.executeQuery(sql);
+            if(result.next()){
+                return result.getBytes("reimb_receipt");
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
