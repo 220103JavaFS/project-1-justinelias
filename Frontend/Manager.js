@@ -24,12 +24,18 @@ let resolverEmailColColIndx = document.getElementById("resolverEmailCol").cellIn
 let statusColIndx = document.getElementById("statusCol").cellIndex;
 let recptColIndx = document.getElementById("recptCol").cellIndex;
 let user = JSON.parse(sessionStorage.userSession);
+let reimbBtn = document.getElementById("reimbBtn");
 
 const url = "http://localhost:8080/";
 
 window.addEventListener("load", getAllReimbs); //load data when page opens
 toggleBtn.addEventListener("click", toggleResolvedRows);
 logoutBtn.addEventListener("click", logoutFunc);
+
+
+reimbBtn.addEventListener("click", ()=> {
+window.location.replace(url + "Employee.html");
+})
 
 greeting.innerText = "Hello "+user["userFirstName"]+" "+user["userLastname"]
 
@@ -72,7 +78,7 @@ async function logoutFunc(){
       if(response.status===200){
           sessionStorage.clear();
           console.log("Logged out");
-          //window.location.replace(url + "login.html");
+          window.location.replace(url + "Login.html");
       }else{
         console.log("Logout unsuccessful");
       }

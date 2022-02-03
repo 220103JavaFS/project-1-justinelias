@@ -7,19 +7,29 @@ let logoutBtn = document.getElementById("logoutBtn");
 let greeting = document.getElementById("greeting")
 let userCredentials = JSON.parse(sessionStorage.getItem('userSession'));
 let spinner = document.getElementById("spinner");
+let returnToManagerPageBtn = document.getElementById("returnToManagerPage")
+let input = document.getElementById("file");
+let receipt;
 
 
+input.addEventListener("change", (e)=>getImg(e));
 logoutBtn.addEventListener("click", logoutFunc);
 addReimbBtn.addEventListener("click", addReimb);
+returnToManagerPageBtn.addEventListener("click", ()=> {
+window.location.replace(url + "Manager.html");
+})
 
-
+spinner.hidden = false;
 if (sessionStorage.getItem("userSession") == null ){
      window.location.replace(url + "Login.html");
    }else{
    greeting.innerText = "Hello "+userCredentials["userFirstName"]+" "+userCredentials["userLastname"];
    getAllReimbs();
    spinner.hidden = true;
+   if (userCredentials.userRole.ersUserRoleId === 1) {
+   returnToManagerPageBtn.hidden=true;
    }
+ }
 
 async function logoutFunc(){
     
@@ -58,7 +68,8 @@ console.log("button worked");
     let status = {
         reimbAmount: document.getElementById("reimbAmount").value,
         reimbDescription: document.getElementById("reimbDescription").value,
-        reimbType: {reimbTypeId:reimbTypeNumber}
+        reimbType: {reimbTypeId:reimbTypeNumber},
+//        reimbReceipt: {receipt}
     }
 
     let response = await fetch(url + "reimb",{
@@ -136,5 +147,11 @@ console.log(userCredentials);
       }
     }
 
+    function getImg(e){
+        let reader = new FileReader();
+        reader.addEventListener("load", ()=> {
+        receipt=(reader.result.split(',')[1])});
+        reader.readAsDataURL(e.target.files[0]);
 
+}
 

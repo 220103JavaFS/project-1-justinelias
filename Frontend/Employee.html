@@ -12,7 +12,12 @@
 </head>
 <body>
 <h2 id="greeting">Hello</h2>
-
+<div>
+    <button class="btn btn-outline-danger btn-sm" id="logoutBtn">Logout</button>
+    <button class="btn btn-outline-primary" id="returnToManagerPage">Return to Manager Page</button>
+</div>
+<br>
+<br>
     <div>
         <table id="tbl" class="table table-bordered table-sm table-hover">
             <thead class = "text-center">
@@ -59,6 +64,9 @@
         <label for="reimbDescription">Reimbursement Description</label><br>
         <input type="text" id="reimbDescription" name="reimbDescription"><br>
 
+          <input type="file"  accept="image/*" name="image" id="file" style="display: none;"></p>
+          <label for="file" style="cursor: pointer;">Upload Image</label><br>
+
         <!-- <label for="reimbType">Reimbursement Type</label><br> -->
         <label class="form-label" for="reimbType">Reimbursement Type</label>
                 <select class="form-select" id="reimbType" required>
@@ -69,9 +77,9 @@
                 </select>
         <!-- <input type="text" id="reimbType" name="reimbType" placeholder="Lodging, Travel, Food, or Other"><br> -->
       </form>
-      <button class="btn btn-primary" id="addReimbButton">Request Reimbursement</button>
-      <button class="btn btn-outline-danger btn-sm" id="logoutBtn">Logout</button>
-    </div>
+          <button class="btn btn-primary" id="addReimbButton">Request Reimbursement</button>
+
+      </div>
 
     <script src="Employee.js"></script>
 </body>
