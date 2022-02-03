@@ -59,12 +59,28 @@ public class ReimbursementController implements Controller{
         }
     };
 
-
+    private Handler getReimbReceipt = (ctx) ->{
+        if (ctx.req.getSession(false)!=null){
+            int reimbId = Integer.parseInt(ctx.pathParam("id"));
+            byte[] receipt = reimbursementService.getReimbReceipt(reimbId);
+            if(receipt!=null){
+                Reimbursement reimb = new Reimbursement();
+                reimb.setReimbReceipt(receipt);
+                ctx.json(reimb);
+                ctx.status(200);
+            }else{
+                ctx.status(400);
+            }
+        }else{
+            ctx.status(401);
+        }
+    };
 
     @Override
     public void addRoutes(Javalin app) {
         app.post("/reimb", newReimb);
         app.get("/reimb", getAllReimbs);
         app.put("/reimb", updateReimb);
+        app.post("/reimb/receipt/{id}", getReimbReceipt);
     }
 }
