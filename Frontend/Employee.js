@@ -6,7 +6,7 @@ const url = "http://localhost:8080/";
 
 
 let addReimbBtn = document.getElementById("addReimbButton");
-let reimbTable = document.getElementById("reimbRequestTable");
+let reimbTable = document.getElementById("reimbTbl");
 let logoutBtn = document.getElementById("logoutBtn");
 
 logoutBtn.addEventListener("click", logoutFunc);
@@ -32,6 +32,7 @@ async function logoutFunc(){
 }
 
 async function addReimb(){
+console.log("button worked");
 // //temp code just to get authorization in testing
 // let user = {ersUsername:"ChristmasCarol", ersPassword:"PassSw0Rd555"}
 
@@ -48,22 +49,22 @@ async function addReimb(){
 // }else{
 //     console.log("Login unsuccessful. Returned status cose of: "+response2.status);
 // }
-    let reimbTypeId = 0;
+    let reimbTypeNumber = 0;
 
     if (document.querySelector("#reimbType").value=="Lodging"){
-        reimbTypeId = 1;
+        reimbTypeNumber = 1;
     } else if (document.querySelector("#reimbType").value=="Travel"){
-        reimbTypeId = 2;
+        reimbTypeNumber = 2;
     } else if (document.querySelector("#reimbType").value=="Food"){
-        reimbTypeId = 3;
+        reimbTypeNumber = 3;
     } else if (document.querySelector("#reimbType").value=="Other"){
-        reimbTypeId = 4;
+        reimbTypeNumber = 4;
     } 
-        console.log(reimbTypeId);
+        console.log(reimbTypeNumber);
     let status = {
-        amount: document.getElementById("reimbAmount").value,
-        description: document.getElementById("reimbDescription").value,
-        type: reimbTypeId
+        reimbAmount: document.getElementById("reimbAmount").value,
+        reimbDescription: document.getElementById("reimbDescription").value,
+        reimbType: {reimbTypeId:reimbTypeNumber}
     }
 
     let response = await fetch(url + "reimb",{
@@ -82,6 +83,8 @@ async function addReimb(){
 // View current employee's own requests
 
 async function getAllReimbs(){
+console.log("got to allReimbs Func")
+
     let response = await fetch(url + "reimb", {
         credentials: "include"
     })
@@ -95,17 +98,50 @@ async function getAllReimbs(){
 }
 
 function populateReimbs(reimbs){
+console.log("got to populate func");
+let userCredentials = JSON.parse(sessionStorage.getItem('userSession'));
+console.log(userCredentials);
     reimbTable.innerHTML = "";
     for(let reimb of reimbs){
-        let row = document.createElement("tr");
-        for(let data in reimb){
-            let reimbData = reimb[data]; 
-            // create new cell with reimbData
-            let td = document.createElement("td");
-            td.innerHTML = reimbData;
-            row.appendChild(td);
+//   reimb["reimbAuthor"]["userId"]; check user id in current reimb against the current session's user id, if they match
+    console.log(reimb["reimbAuthor"]["ersUsersId"]);
+    if(reimb["reimbAuthor"]["ersUsersId"]===userCredentials["ersUsersId"]){
+     let row = document.createElement("tr");
+    //        let myReimb = []
+            console.log(reimb);
+//            for(let data in reimb){
+//                let reimbData = reimb[data];
+
+                // create new cell with reimbData
+                let td = document.createElement("td");
+                td.innerText = reimb["reimbId"];
+                  row.appendChild(td);
+
+
+                let td2 = document.createElement("td");
+                td2.innerText = reimb["reimbAmount"];
+                row.appendChild(td2);
+
+                let td3 = document.createElement("td");
+                console.log(reimb["reimbType"]["reimbType"])
+                td3.innerText = reimb["reimbType"]["reimbType"];
+                                row.appendChild(td3);
+
+                  let td4 = document.createElement("td");
+                  td4.innerText = reimb["reimbDescription"];
+                  row.appendChild(td4);
+
+                  let td5 = document.createElement("td");
+                td5.innerText = reimb["reimbStatus"]["reimbStatus"];
+                                  row.appendChild(td5);
+
+//            }
+            reimbTable.appendChild(row);
+        }else{
+        console.log("Users dont match")
         }
-        reimbTable.appendChild(row);
+      }
     }
-}
+
+
 

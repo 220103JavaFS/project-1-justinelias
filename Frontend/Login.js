@@ -3,14 +3,14 @@ let userName = document.getElementById("username");
 let passWord = document.getElementById("password");
 
 
-if (sessionStorage.getItem("userSession") != null){
-  let user = JSON.parse(sessionStorage.getItem("userSession"));
-  if(user.ersUserRoleId === 1){
-      window.location.replace(url + "Employee.html");
-  } else {
-    window.location.replace(url + "Manager.html");
-  }
-}  
+//if (sessionStorage.getItem("userSession") != null){
+//  let user = JSON.parse(sessionStorage.getItem("userSession"));
+//  if(user.ersUserRoleId === 1){
+//      window.location.replace(url + "Employee.html");
+//  } else {
+//    window.location.replace(url + "Manager.html");
+//  }
+//}
 
 const url = "http://localhost:8080/";
 
@@ -34,13 +34,13 @@ async function loginFunc(){
         credentials: "include"
       }
     );
-    console.log(response);
+//    console.log(response.json());
   
     if(response.status===200){
       let userCredentials = await response.json();
-        sessionStorage.setItem("userSession", userCredentials);
+        sessionStorage.setItem("userSession", JSON.stringify(userCredentials));
 
-        if (userCredentials.ersUserRoleId === 1) {
+        if (userCredentials.userRole.ersUserRoleId === 1) {
           console.log(userCredentials);
 
             window.location.replace(url + "Employee.html");
