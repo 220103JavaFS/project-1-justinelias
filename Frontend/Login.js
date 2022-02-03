@@ -2,9 +2,17 @@ let loginBtn = document.getElementById("loginBtn");
 let userName = document.getElementById("username");
 let passWord = document.getElementById("password");
 
-// const userName = "AliceInWL"
-// const passWord = "$2a$10$aQWQsRhNqAlIvG7M4lliouKpzJlZmW3y5Siwx762NCC5DgzfbtSES"
-const url = "http:localhost:8080/"
+
+if (sessionStorage.getItem("userSession") != null){
+  let user = JSON.parse(sessionStorage.getItem("userSession"));
+  if(user.ersUserRoleId === 1){
+      window.location.replace(url + "Employee.html");
+  } else {
+    window.location.replace(url + "Manager.html");
+  }
+}  
+
+const url = "http://localhost:8080/";
 
 
 loginBtn.addEventListener("click", loginFunc);
@@ -13,25 +21,26 @@ loginBtn.addEventListener("click", loginFunc);
 async function loginFunc(){
   console.log("button worked");
     let user = {
-      username: userName.value,
-      password: passWord.value
+      ersUsername: userName.value,
+      ersPassword: passWord.value
     }
-  
+    console.log(user);
     let response = await fetch(
       url+"login",
       {
-        mode: "no-cors",
+        // mode: "no-cors",
         method : "POST",
         body : JSON.stringify(user),
         credentials: "include"
       }
     );
+    console.log(response);
   
     if(response.status===200){
       let userCredentials = await response.json();
         sessionStorage.setItem("userSession", userCredentials);
 
-        if (userCredentials.userRoleId === 1) {
+        if (userCredentials.ersUserRoleId === 1) {
           console.log(userCredentials);
 
             window.location.replace(url + "Employee.html");

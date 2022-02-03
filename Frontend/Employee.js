@@ -1,8 +1,8 @@
-const url = "http://localhost:8000/";
+const url = "http://localhost:8080/";
 
-if (sessionStorage.getItem("userSession") == null ){
-    window.location.replace(url + "Login.html");
-  }
+// if (sessionStorage.getItem("userSession") == null ){
+//     window.location.replace(url + "Login.html");
+//   }
 
 
 let addReimbBtn = document.getElementById("addReimbButton");
@@ -32,22 +32,22 @@ async function logoutFunc(){
 }
 
 async function addReimb(){
-//temp code just to get authorization in testing
-let user = {ersUsername:"ChristmasCarol", ersPassword:"PassSw0Rd555"}
+// //temp code just to get authorization in testing
+// let user = {ersUsername:"ChristmasCarol", ersPassword:"PassSw0Rd555"}
 
-let response2 = await fetch(url+"login",
-    {
-        method:"POST",
-        body : JSON.stringify(user),
-        credentials: "include"
-    }
-);
+// let response2 = await fetch(url+"login",
+//     {
+//         method:"POST",
+//         body : JSON.stringify(user),
+//         credentials: "include"
+//     }
+// );
 
-if(response2.status===200){
-    console.log("Login successful");
-}else{
-    console.log("Login unsuccessful. Returned status cose of: "+response2.status);
-}
+// if(response2.status===200){
+//     console.log("Login successful");
+// }else{
+//     console.log("Login unsuccessful. Returned status cose of: "+response2.status);
+// }
     let reimbTypeId = 0;
 
     if (document.querySelector("#reimbType").value=="Lodging"){
@@ -59,7 +59,7 @@ if(response2.status===200){
     } else if (document.querySelector("#reimbType").value=="Other"){
         reimbTypeId = 4;
     } 
-
+        console.log(reimbTypeId);
     let status = {
         amount: document.getElementById("reimbAmount").value,
         description: document.getElementById("reimbDescription").value,
