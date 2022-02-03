@@ -6,6 +6,7 @@ let spinner = document.getElementById("spinner");
 let modalBody = document.getElementById("modal-body");
 let statusBtn = document.getElementById("statusBtn");
 let greeting = document.getElementById("greeting");
+let recptImg = document.getElementById("recptImg");
 
 //get indices of all columns
 let idColIndx = document.getElementById("idCol").cellIndex;
@@ -21,6 +22,8 @@ let resolverFirstNameColIndx = document.getElementById("resolverFirstNameCol").c
 let resolverLastNameColIndx = document.getElementById("resolverLastNameCol").cellIndex;
 let resolverEmailColColIndx = document.getElementById("resolverEmailCol").cellIndex;
 let statusColIndx = document.getElementById("statusCol").cellIndex;
+let recptColIndx = document.getElementById("recptCol").cellIndex;
+let user = JSON.parse(sessionStorage.userSession);
 
 const url = "http://localhost:8080/";
 
@@ -28,27 +31,9 @@ window.addEventListener("load", getAllReimbs); //load data when page opens
 toggleBtn.addEventListener("click", toggleResolvedRows);
 logoutBtn.addEventListener("click", logoutFunc);
 
+greeting.innerText = "Hello "+user["userFirstName"]+" "+user["userLastname"]
+
 async function getAllReimbs(){
-
-    //temp code just to get authorization in testing
-    let user = {ersUsername:"ChristmasCarol", ersPassword:"PassSw0Rd555"}
-
-    let response2 = await fetch(url+"login",
-        {
-            method:"POST",
-            body : JSON.stringify(user),
-            credentials: "include"
-        }
-    );
-
-    if(response2.status===200){
-        console.log("Login successful");
-        user = await response2.json();
-        sessionStorage.user = user;
-        greeting.innerText = "Hello "+user["userFirstName"]+" "+user["userLastname"]
-    }else{
-        console.log("Login unsuccessful. Returned status cose of: "+response2.status);
-    }
 
     // if(sessionStorage.user["userRole"]<2){
     //     let myModal = new bootstrap.Modal(document.getElementById("myModal"));
@@ -131,6 +116,20 @@ function populateReimbs(reimbs){
             }).format(reimb["reimbAmount"]);
         row.cells[typeColIndx].innerText = reimb["reimbType"]["reimbType"];
         row.cells[descColIndx].innerText = reimb["reimbDescription"];
+
+        if(reimb["reimbReceipt"]){
+
+            let recptAnch = document.createElement("i");
+            recptAnch.style = "cursor: pointer; color: royalblue;";
+            recptAnch.classList.add("bi-card-image")
+            recptAnch.setAttribute("data-bs-toggle", "modal");
+            recptAnch.setAttribute("data-bs-target", "#recptModal");
+            recptAnch.setAttribute("data-bs-reimbId", reimb["reimbId"]);
+            row.cells[recptColIndx].style = "text-align: center; vertical-align: middle;";
+
+            row.cells[recptColIndx].appendChild(recptAnch);
+        }
+
         row.cells[authorSubmittedColIndx].innerText = new Intl.DateTimeFormat('default', {
             year: 'numeric',
             month: 'numeric',
@@ -248,3 +247,65 @@ async function updateReimb(reimb, status){
         row.cells[statusColIndx].appendChild(removedBtn);
     }
 }
+
+let input = document.getElementById("file");
+let image = document.getElementById("image");
+
+input.addEventListener("change", (e)=>getImg(e));
+
+
+function getImg(e){
+    let reader = new FileReader();
+    reader.addEventListener("load", ()=>sendImg(reader.result));
+    reader.readAsDataURL(e.target.files[0]);
+}
+
+async function sendImg(img){
+    console.log("sending img");
+    let imgdb = img.split(',')[1];
+    console.log(imgdb);
+    let r = {reimbAmount:55,
+        reimbReceipt:imgdb,
+        reimbType:{reimbTypeId:4}
+    };
+    let response2 = await fetch(url+"reimb",
+        {
+        method:"POST",
+        body : JSON.stringify(r),
+        credentials: "include"
+        }
+    );
+
+    if(response2.status===201){
+        console.log("Yay");
+    }else{
+        console.log("Boooo. Returned status code of: "+response2.status);
+    }
+}
+
+var recptModal = document.getElementById('recptModal')
+recptModal.addEventListener('show.bs.modal', function (event) {
+    recptImg.src="";
+  // Element that triggered the modal
+  let anc = event.relatedTarget
+  // Extract info from data-bs-* attributes
+  let reimbId = anc.getAttribute('data-bs-reimbId')
+  // get image from db
+  getImgFromDB(reimbId);
+})
+
+async function getImgFromDB(id){
+    console.log(url+"reimb/receipt/"+id);
+    let response = await fetch(url+"reimb/receipt/"+id,
+        {credentials: "include" }
+    );
+
+    if(response.status===200){
+        console.log("status 200?")
+        let receipt = await response.json();
+        recptImg.src = "data:image/png;base64,"+receipt;
+    }else{
+        console.log("Oh no! Returned status code of: "+response.status);
+    }
+}
+

@@ -14,7 +14,7 @@ public class App {
 
     public static void main(String[] args) {
         app = Javalin.create((config -> {
-            config.addStaticFiles(System.getenv("HTMLPage"), Location.EXTERNAL);
+            config.addStaticFiles("http://javafs220103-justin.s3-website-us-east-1.amazonaws.com", Location.EXTERNAL);
         }));
         configure(new LoginController(), new ReimbursementController(), new ReimbursementStatusController(),
             new ReimbursementTypeController(), new UserController(), new UserRoleController());
