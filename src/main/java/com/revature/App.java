@@ -13,10 +13,13 @@ public class App {
     private static Logger log = LoggerFactory.getLogger(App.class);
 
     public static void main(String[] args) {
-        app = Javalin.create();
+        app = Javalin.create((config)->{
+            config.addStaticFiles(System.getenv("HTMLPage"),
+                    Location.EXTERNAL);
+        });
         configure(new LoginController(), new ReimbursementController(), new ReimbursementStatusController(),
             new ReimbursementTypeController(), new UserController(), new UserRoleController());
-        app.start(7000);
+        app.start();
     }
 
     private static void configure(Controller...controllers){

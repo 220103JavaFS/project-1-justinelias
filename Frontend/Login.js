@@ -27,9 +27,11 @@ async function loginFunc(){
     let response = await fetch(
       url+"login",
       {
+        //Origin : "http://localhost:8080",
         method : "POST",
         body : JSON.stringify(user),
         credentials: "include"
+
       }
     );
 
