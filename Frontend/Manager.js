@@ -254,10 +254,9 @@ async function updateReimb(reimb, status){
     }
 }
 
-let input = document.getElementById("file");
-let image = document.getElementById("image");
 
-input.addEventListener("change", (e)=>getImg(e));
+
+
 
 
 function getImg(e){

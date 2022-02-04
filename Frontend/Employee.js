@@ -19,13 +19,13 @@ returnToManagerPageBtn.addEventListener("click", ()=> {
 window.location.replace(url + "Manager.html");
 })
 
-spinner.hidden = false;
+
 if (sessionStorage.getItem("userSession") == null ){
      window.location.replace(url + "Login.html");
    }else{
    greeting.innerText = "Hello "+userCredentials["userFirstName"]+" "+userCredentials["userLastname"];
+
    getAllReimbs();
-   spinner.hidden = true;
    if (userCredentials.userRole.ersUserRoleId === 1) {
    returnToManagerPageBtn.hidden=true;
    }
@@ -69,7 +69,7 @@ console.log("button worked");
         reimbAmount: document.getElementById("reimbAmount").value,
         reimbDescription: document.getElementById("reimbDescription").value,
         reimbType: {reimbTypeId:reimbTypeNumber},
-//        reimbReceipt: {receipt}
+        reimbReceipt: receipt
     }
 
     let response = await fetch(url + "reimb",{
@@ -85,11 +85,10 @@ console.log("button worked");
     }
 }
 
-// View current employee's own requests
 
 async function getAllReimbs(){
 console.log("got to allReimbs Func")
-
+   spinner.hidden = false;
     let response = await fetch(url + "reimb", {
         credentials: "include"
     })
@@ -100,22 +99,20 @@ console.log("got to allReimbs Func")
     } else{
         console.log("Unsuccessful" + response.status);
     }
+       spinner.hidden = true;
 }
 
 function populateReimbs(reimbs){
 console.log("got to populate func");
 console.log(userCredentials);
     reimbTable.innerHTML = "";
+    // View current employee's own requests
     for(let reimb of reimbs){
 //   reimb["reimbAuthor"]["userId"]; check user id in current reimb against the current session's user id, if they match
     console.log(reimb["reimbAuthor"]["ersUsersId"]);
     if(reimb["reimbAuthor"]["ersUsersId"]===userCredentials["ersUsersId"]){
      let row = document.createElement("tr");
-    //        let myReimb = []
             console.log(reimb);
-//            for(let data in reimb){
-//                let reimbData = reimb[data];
-
                 // create new cell with reimbData
                 let td = document.createElement("td");
                 td.innerText = reimb["reimbId"];
@@ -151,6 +148,7 @@ console.log(userCredentials);
         let reader = new FileReader();
         reader.addEventListener("load", ()=> {
         receipt=(reader.result.split(',')[1])});
+        console.log(receipt);
         reader.readAsDataURL(e.target.files[0]);
 
 }

@@ -12,19 +12,18 @@
 </head>
 <body>
 <h2 id="greeting">Hello</h2>
+<br>
 <div>
     <button class="btn btn-outline-danger btn-sm" id="logoutBtn">Logout</button>
     <button class="btn btn-outline-primary" id="returnToManagerPage">Return to Manager Page</button>
 </div>
 <br>
-<br>
+
     <div>
         <table id="tbl" class="table table-bordered table-sm table-hover">
             <thead class = "text-center">
             <tr>
                 <th colspan="4" class="table-primary">Reimbursement Information</th>
-                <!-- <th colspan="4" class="table-info">Requester</th>
-                <th colspan="4" class="table-secondary">Resolver</th> -->
 
             </tr>
             <tr id="reimbHeader">
@@ -57,26 +56,28 @@
       <div>
       <form class="form-control">
 
-        <label for="reimbAmount">Reimbursement Amount</label><br>
-        <input type="number" id="reimbAmount" name="reimbAmount" min="0" step="0.01"> <br>
-        <!-- Use step attribute for decimals? -->
-        <!-- <br> -->
-        <label for="reimbDescription">Reimbursement Description</label><br>
-        <input type="text" id="reimbDescription" name="reimbDescription"><br>
+        <label for="reimbAmount">Reimbursement Amount</label>
+          <br>
+        <input type="number" id="reimbAmount" name="reimbAmount" min="0" step="0.01">
+          <br>
 
-          <input type="file"  accept="image/*" name="image" id="file" style="display: none;"></p>
-          <label for="file" style="cursor: pointer;">Upload Image</label><br>
+        <label for="reimbDescription">Reimbursement Description</label>
+          <br>
+        <input type="text" id="reimbDescription" name="reimbDescription">
+          <br>
+            <br>
+          <input type="file"  accept="image/*" name="image" id="file" style="display: box;"></p>
+<!--          <br>-->
 
-        <!-- <label for="reimbType">Reimbursement Type</label><br> -->
         <label class="form-label" for="reimbType">Reimbursement Type</label>
-                <select class="form-select" id="reimbType" required>
+                <select class="form-select" id="reimbType" required style="width:20%">
                     <option value= "Lodging">Lodging</option>
                     <option value="Travel">Travel</option>
                     <option value="Food">Food</option>
                     <option value="Other">Other</option>
                 </select>
-        <!-- <input type="text" id="reimbType" name="reimbType" placeholder="Lodging, Travel, Food, or Other"><br> -->
       </form>
+          <br>
           <button class="btn btn-primary" id="addReimbButton">Request Reimbursement</button>
 
       </div>
