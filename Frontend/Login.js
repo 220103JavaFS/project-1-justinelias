@@ -48,6 +48,6 @@ async function loginFunc(){
             window.location.replace(url + "Manager.html");
         }
     }else{
-      alert("Not So fast, my friend! Check those credentials. Returned status code of:"+ response.status);
+      alert("Not so fast, my friend! Check those credentials. Returned status code of: "+ response.status);
     }
 }

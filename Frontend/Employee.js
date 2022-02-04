@@ -120,7 +120,10 @@ console.log(userCredentials);
 
 
                 let td2 = document.createElement("td");
-                td2.innerText = reimb["reimbAmount"];
+                td2.innerText = new Intl.NumberFormat('en-US', {
+                                            style: 'currency',
+                                            currency: 'USD'
+                                            }).format(reimb["reimbAmount"]);
                 row.appendChild(td2);
 
                 let td3 = document.createElement("td");
